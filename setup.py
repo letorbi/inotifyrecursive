@@ -10,14 +10,14 @@ else:
     install_requires = ["inotify_simple"]
 
 setuptools.setup(
-    name="inotify_recursive",
+    name="inotify-recursive",
     version="0.1.0",
     author="Torben Haase",
     author_email="torben@pixelsvsbytes.com",
     description="Recursive inotify watches based on inotify_simple.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/letorbi/inotify_recursive",
+    url="https://github.com/letorbi/inotify-recursive",
     packages=setuptools.find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",

@@ -1,6 +1,6 @@
-# Inotify_recursive - Recursive inotify watches for Python
+# Inotify-Recursive - Recursive inotify watches for Python
 
-TODO
+More info will follow soon.
 
 ----
 
