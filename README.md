@@ -5,7 +5,7 @@ via the inotify functionality of the Linux kernel. It uses [the inotify_simple p
 to set and remove the inotify watches and also incorporates its whole functionality. The package is written in
 Python and licensed as open-source under the GPL version 3.
 
-At the moment the main purpose of Inotify Recursive is, to provide the file watching functionality for [Synoindex Watcher](https://github.com/letorbi/synoindexwatcher), a small tool that automatically updates the media index of Synology DiskStations.
+At the moment the main purpose of Inotify Recursive is to provide the file watching functionality for [Synoindex Watcher](https://github.com/letorbi/synoindexwatcher), a small tool that automatically updates the media index of Synology DiskStations.
 
 *This Python package is still an alpha! Its core functionality has been tested and is working, but there could still be undiscovered bugs. Also breaking interface changes are likely to happen, so it is not recommended to use it in
 production projects, yet.*
