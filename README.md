@@ -1,4 +1,4 @@
-# Inotify-Recursive - Recursive inotify watches for Python
+# Inotify Recursive - Recursive inotify watches for Python
 
 More info will follow soon.
 
