@@ -67,6 +67,9 @@ class INotify(inotify_simple.INotify):
         logging.debug("Removed info for watch %d" % wd)
 
     def __add_watch_recursive(self, path, mask, filter, tail, parent, loose = True):
+        if filter != None and not filter(path):
+            logging.debug("Path has been filtered, not adding watch: %s" % path)
+            return
         try:
             wd = inotify_simple.INotify.add_watch(self, path, mask | flags.IGNORED | flags.CREATE | flags.MOVED_FROM | flags.MOVED_TO)
             logging.debug("Added watch %d" % wd)
@@ -83,8 +86,7 @@ class INotify(inotify_simple.INotify):
             self.__add_info(wd, name, mask, filter, parent)
             for entry in os.listdir(path):
                 entrypath = os.path.join(path, entry)
-                if os.path.isdir(entrypath) and (filter == None or filter(entrypath)):
-                    self.__add_watch_recursive(entrypath, mask, filter, entry, wd)
+                self.__add_watch_recursive(entrypath, mask, filter, entry, wd)
         return wd
 
     def __rm_watch_recursive(self, wd, loose = True):
