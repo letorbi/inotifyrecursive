@@ -44,8 +44,7 @@ Returns the descriptor for the newly created watch of the directory where the gi
 this function also creates watches for all sub-directories below it. The descriptors of the sub-watches are not
 returned.
 
-The filter function is optional. If it exists it takes a directory-name and returns boolean value which describes
-whether the directory shall be watched (`True`) or ignored (`False`).
+The filter function is optional. It takes the name of the file or directory and the descriptor of the watcher of the parent directory. The filter returns a boolean value, which describes whether the directory shall be watched (`True`) or ignored (`False`). If no filter is set, all files and sub-directories will be watched.
 
 ####  `inotify.rm_watch_recursive(wd)`
 
