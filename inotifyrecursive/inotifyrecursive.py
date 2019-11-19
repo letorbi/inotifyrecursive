@@ -66,7 +66,7 @@ class INotify(inotify_simple.INotify):
         del self.__info[wd]
         logging.debug("Removed info for watch %d" % wd)
 
-    def __add_watch_recursive(self, path, mask, filter, tail, parent, loose = True):
+    def __add_watch_recursive(self, path, mask, filter, name, parent, loose = True):
         if filter != None and not filter(path):
             logging.debug("Path has been filtered, not adding watch: %s" % path)
             return
@@ -79,7 +79,8 @@ class INotify(inotify_simple.INotify):
                 return
             else:
                 raise
-        name = path if parent == -1 else tail
+        if parent == -1:
+            name = path
         if wd in self.__info:
             self.__set_info(wd, name, parent)
         else:
@@ -105,8 +106,8 @@ class INotify(inotify_simple.INotify):
                     raise
 
     def add_watch_recursive(self, path, mask, filter = None):
-        tail = os.path.split(path)[1]
-        return self.__add_watch_recursive(path, mask, filter, tail, -1, False)
+        name = os.path.split(path)[1]
+        return self.__add_watch_recursive(path, mask, filter, name, -1, False)
 
     def rm_watch_recursive(self, wd):
         self.__rm_watch_recursive(wd, False)
@@ -129,14 +130,14 @@ class INotify(inotify_simple.INotify):
                 info = self.__info[event.wd]
                 mask = info["mask"]
                 if event.mask & flags.ISDIR:
-                    tail = str.encode(event.name)
+                    name = str.encode(event.name)
                     if event.mask & (flags.CREATE | flags.MOVED_TO):
-                        path = os.path.join(self.get_path(event.wd), tail)
-                        self.__add_watch_recursive(path, mask, info["filter"], tail, event.wd)
+                        path = os.path.join(self.get_path(event.wd), name)
+                        self.__add_watch_recursive(path, mask, info["filter"], name, event.wd)
                         if event.mask & flags.MOVED_TO and event.cookie in moved_from:
                             del moved_from[event.cookie]
                     elif event.mask & flags.MOVED_FROM:
-                        moved_from[event.cookie] = info["children"][tail]
+                        moved_from[event.cookie] = info["children"][name]
                 elif event.mask & flags.IGNORED:
                     self.__clr_info(event.wd)
                 if (event.mask & mask):
