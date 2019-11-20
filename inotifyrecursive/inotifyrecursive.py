@@ -87,7 +87,8 @@ class INotify(inotify_simple.INotify):
             self.__add_info(wd, name, mask, filter, parent)
             for entry in os.listdir(path):
                 entrypath = os.path.join(path, entry)
-                self.__add_watch_recursive(entrypath, mask, filter, entry, wd)
+                if os.path.isdir(entrypath):
+                    self.__add_watch_recursive(entrypath, mask, filter, entry, wd)
         return wd
 
     def __rm_watch_recursive(self, wd, loose = True):
