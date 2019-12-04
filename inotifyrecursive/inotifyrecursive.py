@@ -131,18 +131,17 @@ class INotify(inotify_simple.INotify):
                 info = self.__info[event.wd]
                 mask = info["mask"]
                 filter = info["filter"]
-                name = str.encode(event.name)
-                if filter != None and not filter(name, event.wd, flags.ISDIR):
-                    logging.debug("Name has been filtered, not processing event: %s" % name)
+                if filter != None and not filter(event.name, event.wd, flags.ISDIR):
+                    logging.debug("Name has been filtered, not processing event: %s" % event.name)
                     continue
                 if event.mask & flags.ISDIR:
                     if event.mask & (flags.CREATE | flags.MOVED_TO):
-                        path = os.path.join(self.get_path(event.wd), name)
-                        self.__add_watch_recursive(path, mask, info["filter"], name, event.wd)
+                        path = os.path.join(self.__get_path_as_bytes(event.wd), event.name)
+                        self.__add_watch_recursive(path, mask, info["filter"], event.name, event.wd)
                         if event.mask & flags.MOVED_TO and event.cookie in moved_from:
                             del moved_from[event.cookie]
                     elif event.mask & flags.MOVED_FROM:
-                        moved_from[event.cookie] = info["children"][name]
+                        moved_from[event.cookie] = info["children"][event.name]
                 elif event.mask & flags.IGNORED:
                     self.__clr_info(event.wd)
                 if (event.mask & mask):
