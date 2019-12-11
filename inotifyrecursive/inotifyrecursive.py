@@ -136,7 +136,7 @@ class INotify(inotify_simple.INotify):
                     continue
                 if event.mask & flags.ISDIR:
                     if event.mask & (flags.CREATE | flags.MOVED_TO):
-                        path = os.path.join(self.__get_path_as_bytes(event.wd), event.name)
+                        path = os.path.join(self.get_path(event.wd), event.name)
                         self.__add_watch_recursive(path, mask, info["filter"], event.name, event.wd)
                         if event.mask & flags.MOVED_TO and event.cookie in moved_from:
                             del moved_from[event.cookie]

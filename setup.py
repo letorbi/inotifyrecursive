@@ -11,7 +11,7 @@ else:
 
 setuptools.setup(
     name="inotifyrecursive",
-    version="0.2.3",
+    version="0.2.4",
     author="Torben Haase",
     author_email="torben@pixelsvsbytes.com",
     description="Recursive inotify watches based on inotify_simple.",
