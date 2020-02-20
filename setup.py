@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 if sys.version_info.major < 3:
-    install_requires = ["enum", "inotify_simple"]
+    install_requires = ["enum", "inotify_simple==1.2.1"]
 else:
-    install_requires = ["inotify_simple"]
+    install_requires = ["inotify_simple==1.2.1"]
 
 setuptools.setup(
     name="inotifyrecursive",
-    version="0.2.5",
+    version="0.2.6",
     author="Torben Haase",
     author_email="torben@pixelsvsbytes.com",
     description="Recursive inotify watches based on inotify_simple.",
