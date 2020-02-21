@@ -5,9 +5,9 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 if sys.version_info.major < 3:
-    install_requires = ["enum", "inotify_simple==1.2.1"]
+    install_requires = ["enum", "inotify_simple"]
 else:
-    install_requires = ["inotify_simple==1.2.1"]
+    install_requires = ["inotify_simple"]
 
 setuptools.setup(
     name="inotifyrecursive",

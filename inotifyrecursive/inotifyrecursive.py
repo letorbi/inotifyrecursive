@@ -18,8 +18,13 @@
 
 import logging
 import os
+import inotify_simple
 
-from inotify_simple import *
+# Re-export public exports of inotify_simple
+flags = inotify_simple.flags
+masks = inotify_simple.masks
+parse_events = inotify_simple.parse_events
+Event = inotify_simple.Event
 
 class INotify(inotify_simple.INotify):
     def __init__(self):
