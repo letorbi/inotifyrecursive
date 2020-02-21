@@ -12,7 +12,7 @@ production projects, yet.*
 
 ## Features
 
-* **Small** Less than 150 lines of code (including comments) 
+* **Small** About 150 lines of code (including comments)
 * **Powerfull** All features of inotify-simple plus recursive watching
 * **Agnostic** Python 2 and Python 3 compatible (minimum tested version is 2.7)
 
@@ -23,8 +23,7 @@ The recommended installation method is via pip:
 `pip install inotifyrecursive`
 
 You could also simply clone the repository or copy the code directly into your project, but don't forget to install the
-dependencies [inotify-simple](https://pypi.org/project/inotify_simple/) and [enum](https://pypi.org/project/enum/)
-(Python2 only), if you choose one of these ways.
+dependency [inotify-simple](https://pypi.org/project/inotify_simple/), if you choose this way.
 
 ## Documentation
 
