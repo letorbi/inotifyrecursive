@@ -107,8 +107,6 @@ class INotify(inotify_simple.INotify):
                     raise
 
     def add_watch_recursive(self, path, mask, filter = None):
-        if not isinstance(path, bytes):
-            path = inotify_simple._fsencode(path)
         name = os.path.split(path)[1]
         return self.__add_watch_recursive(path, mask, filter, name, -1, False)
 
