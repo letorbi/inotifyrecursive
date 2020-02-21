@@ -4,10 +4,11 @@ import sys
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-if sys.version_info.major < 3:
-    install_requires = ["enum", "inotify_simple"]
-else:
-    install_requires = ["inotify_simple"]
+install_requires = ["inotify-simple"]
+
+# The enum34 requirement should be handled by inotify-simple
+if sys.version_info.major < 3 or (sys.version_info.major == 3 and sys.version_info.minor < 4):
+    install_requires += ["enum34"]
 
 setuptools.setup(
     name="inotifyrecursive",
