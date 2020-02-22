@@ -22,6 +22,6 @@ setuptools.setup(
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
     ],
-    install_requires=["inotify-simple"],
+    install_requires=["inotify-simple>=1.3.2"],
     python_requires=">=2.7, !=3.0.*, !=3.1.*"
 )
