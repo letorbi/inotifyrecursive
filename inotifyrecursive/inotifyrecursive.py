@@ -136,7 +136,7 @@ class INotify(inotify_simple.INotify):
                 info = self.__info[event.wd]
                 mask = info["mask"]
                 filter = info["filter"]
-                if filter != None and not filter(event.name, event.wd, flags.ISDIR):
+                if filter != None and not filter(event.name, event.wd, event.mask & flags.ISDIR):
                     logging.debug("Name has been filtered, not processing event: %s" % event.name)
                     continue
                 if event.mask & flags.ISDIR:
