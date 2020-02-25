@@ -72,44 +72,44 @@ class INotify(inotify_simple.INotify):
         logging.debug("Removed info for watch %d" % wd)
 
     def __add_watch_recursive(self, path, mask, filter, name, parent, loose = True):
-        if filter != None and not filter(name, parent, True):
-            logging.debug("Name has been filtered, not adding watch: %s" % name)
-            return
         try:
+            if filter != None and not filter(name, parent, True):
+                logging.debug("Name has been filtered, not adding watch: %s" % name)
+                return
             wd = inotify_simple.INotify.add_watch(self, path, mask | flags.IGNORED | flags.CREATE | flags.MOVED_FROM | flags.MOVED_TO)
             logging.debug("Added watch %d" % wd)
+            if parent == -1:
+                name = path
+            if wd in self.__info:
+                self.__set_info(wd, name, parent)
+            else:
+                self.__add_info(wd, name, mask, filter, parent)
+                for entry in os.listdir(path):
+                    entrypath = os.path.join(path, entry)
+                    if os.path.isdir(entrypath):
+                        self.__add_watch_recursive(entrypath, mask, filter, entry, wd)
+            return wd
         except OSError as e:
             if loose and e.errno == 2:
                 logging.debug("Cannot add watch, path not found: %s" % path)
                 return
             else:
                 raise
-        if parent == -1:
-            name = path
-        if wd in self.__info:
-            self.__set_info(wd, name, parent)
-        else:
-            self.__add_info(wd, name, mask, filter, parent)
-            for entry in os.listdir(path):
-                entrypath = os.path.join(path, entry)
-                if os.path.isdir(entrypath):
-                    self.__add_watch_recursive(entrypath, mask, filter, entry, wd)
-        return wd
 
     def __rm_watch_recursive(self, wd, loose = True):
-        if wd in self.__info:
-            children = self.__info[wd]["children"]
-            for name in children:
-                self.__rm_watch_recursive(children[name])
-            try:
+        try:
+            if wd in self.__info:
+                children = self.__info[wd]["children"]
+                for name in children:
+                    self.__rm_watch_recursive(children[name])
                 inotify_simple.INotify.rm_watch(self, wd)
                 logging.debug("Removed watch %d" % wd)
-            except OSError as e:
-                if loose and e.errno == 22:
-                    logging.debug("Cannot remove watch, descriptor does not exist: %d" % wd)
-                    return
-                else:
-                    raise
+        except OSError as e:
+            if loose and e.errno == 22:
+                logging.debug("Cannot remove watch, descriptor does not exist: %d" % wd)
+                return
+            else:
+                raise
 
     def add_watch_recursive(self, path, mask, filter = None):
         name = os.path.split(path)[1]
