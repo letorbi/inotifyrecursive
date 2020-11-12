@@ -1,9 +1,9 @@
 # Inotify Recursive - Recursive inotify watches for Python
 
 Inotify Recursive is a Python package that offers a simple way to watch a directory-tree recursively for file changes
-via the inotify functionality of the Linux kernel. It uses [the inotify_simple package](https://github.com/chrisjbillington/inotify_simple)
+via the inotify functionality of the Linux kernel. It uses the inotify_simple package
 to set and remove the inotify watches and also incorporates its whole functionality. The package is written in
-Python and licensed as open-source under the GPL version 3.
+Python and licensed as open-source under the LGPL version 3.
 
 At the moment the main purpose of Inotify Recursive is to provide the file watching functionality for [Synoindex Watcher](https://github.com/letorbi/synoindexwatcher), a small tool that automatically updates the media index of Synology DiskStations.
 
@@ -13,17 +13,18 @@ production projects, yet.*
 ## Features
 
 * **Small** About 150 lines of code (including comments)
-* **Powerfull** All features of inotify-simple plus recursive watching
+* **Powerful** All features of [inotify_simple](https://pypi.org/project/inotify_simple/) plus recursive watching
 * **Agnostic** Python 2 and Python 3 compatible (minimum tested version is 2.7)
 
 ## Installation
 
 The recommended installation method is via pip:
 
-`pip install inotifyrecursive`
+`python -m pip install --upgrade inotifyrecursive`
 
-You could also simply clone the repository or copy the code directly into your project, but don't forget to install the
-dependency [inotify-simple](https://pypi.org/project/inotify_simple/), if you choose this way.
+You can use the same command to upgrade Inotify Recursive from an older version.
+
+This will also install its dependency inotify_simple.
 
 ## Documentation
 
@@ -60,4 +61,4 @@ Returns the absolute path of the directory associated to the watch with given de
 
 ----
 
-Copyright 2019 Torben Haase \<[https://pixelsvsbytes.com](https://pixelsvsbytes.com)>
+Copyright 2019,2020 Torben Haase \<[https://pixelsvsbytes.com](https://pixelsvsbytes.com)>
