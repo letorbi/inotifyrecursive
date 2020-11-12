@@ -127,11 +127,11 @@ class INotify(inotify_simple.INotify):
             parent = self.__info[wd]["parent"]
         return path
 
-    def read(self):
+    def read(self, timeout=None, read_delay=None):
         self.__clr_infos()
         events = []
         moved_from = {}
-        for event in inotify_simple.INotify.read(self):
+        for event in inotify_simple.INotify.read(self, timeout=timeout, read_delay=read_delay):
             if event.wd in self.__info:
                 info = self.__info[event.wd]
                 mask = info["mask"]
