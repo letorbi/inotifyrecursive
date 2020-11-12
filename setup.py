@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="inotifyrecursive",
-    version="0.3.3",
+    version="0.3.4",
     author="Torben Haase",
     author_email="git@letorbi.com",
     description="Recursive inotify watches based on inotify_simple.",
