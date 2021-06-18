@@ -38,7 +38,7 @@ watched recursively:
 
   * **path** The path to watch
   * **mask** The mask of events to watch for
-  * **filter** A function to ignore certain sub-directories
+  * **filter** A function to ignore certain files and directories
 
 Returns the descriptor for the newly created watch of the directory where the given path points to. Unlike `add_watch()`
 this function also creates watches for all sub-directories below it. The descriptors of the sub-watches are not
