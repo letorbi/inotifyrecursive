@@ -146,7 +146,10 @@ class INotify(inotify_simple.INotify):
                         if event.mask & flags.MOVED_TO and event.cookie in moved_from:
                             del moved_from[event.cookie]
                     elif event.mask & flags.MOVED_FROM:
-                        moved_from[event.cookie] = info["children"][event.name]
+                        try:
+                            moved_from[event.cookie] = info["children"][event.name]
+                        except KeyError:
+                            logging.debug("%s no longer present in %s" % (event.name, info["children"]))
                 elif event.mask & flags.IGNORED:
                     self.__clr_info(event.wd)
                 if (event.mask & mask):
